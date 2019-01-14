@@ -1,6 +1,8 @@
 .DS_Store
 .gradle
 .idea
+.project
+.settings
 multi
 build
 *.iml
