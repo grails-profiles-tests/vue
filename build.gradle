@@ -6,6 +6,13 @@ plugins {
 }
 
 ext {
+  grailsCoreBranch = '4.0.x'
+  grailsWrapperBranch = '2.0.x'
+  profilesBranch = [
+    'base': '4.0.x',
+    'rest-api': '4.0.x',
+    'vue': 'master'
+  ]
   profilesSlug = 'grails-profiles'
   profiles = [
           'base',
@@ -24,14 +31,14 @@ clean.dependsOn(deleteProfileApps)
 task cloneGrailsWrapper {
   doLast() {
     def grgit = Grgit.clone(dir: "${buildDir}/grails-wrapper".toString(),
-            uri: "https://github.com/grails/grails-wrapper.git")
+            uri: "https://github.com/grails/grails-wrapper.git", refToCheckout: grailsWrapperBranch)
   }
 }
 
 task cloneGrailsCore {
   doLast() {
     def grgit = Grgit.clone(dir: "${buildDir}/grails-core".toString(),
-              uri: "https://github.com/grails/grails-core.git", refToCheckout: "4.0.x")
+              uri: "https://github.com/grails/grails-core.git", refToCheckout: grailsCoreBranch)
   }
 }
 
@@ -39,7 +46,7 @@ task cloneProfiles {
   doLast() {
     profiles.each { String profile ->
       def grgit = Grgit.clone(dir: "${buildDir}/${profile}".toString(),
-              uri: "https://github.com/${profilesSlug}/${profile}.git")
+              uri: "https://github.com/${profilesSlug}/${profile}.git", refToCheckout: profilesBranch.get(profile))
     }
   }
 }
