@@ -11,7 +11,7 @@ ext {
   profilesBranch = [
     'base': '4.0.x',
     'rest-api': '4.0.x',
-    'vue': 'master'
+    'vue': '4.1.x'
   ]
   profilesSlug = 'grails-profiles'
   profiles = [
